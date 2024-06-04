@@ -9,10 +9,11 @@
 
 namespace atm {
 class AtmController {
- public:
-  static std::unique_ptr<AtmController> Create(Banks&& bank_list, BankApi&& bank_api) noexcept;
+public:
+  static std::unique_ptr<AtmController> Create(Banks &&bank_list,
+                                               BankApi &&bank_api) noexcept;
 
-  bool InsertCard(Card&& card) noexcept;
+  bool InsertCard(Card &&card) noexcept;
   void EjectCard() noexcept;
 
   bool VerifyPIN(int pin) noexcept;
@@ -21,9 +22,10 @@ class AtmController {
   bool Deposit(int amount) noexcept;
   bool Withdraw(int amount) noexcept;
 
- private:
-  explicit AtmController(Banks&& bank_list, BankApi&& bank_api, int balance)
-      : banks{std::move(bank_list)}, bank_api_{std::move(bank_api)}, balance_(balance) {}
+private:
+  explicit AtmController(Banks &&bank_list, BankApi &&bank_api, int balance)
+      : banks{std::move(bank_list)}, bank_api_{std::move(bank_api)},
+        balance_(balance) {}
 
   const Banks banks;
   Card card_{};
@@ -34,6 +36,6 @@ class AtmController {
   bool pin_verified_{false};
   int balance_{0};
 };
-}  // end of namespace atm
+} // end of namespace atm
 
-#endif  // end of ATM_CONTROLLER_H_
+#endif // end of ATM_CONTROLLER_H_

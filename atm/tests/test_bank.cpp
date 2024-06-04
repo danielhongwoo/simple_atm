@@ -10,4 +10,4 @@ TEST(TestBank, Cons) {
   ASSERT_EQ(bank.GetId(), 123);
 }
 
-}  // end of namespace atm
+} // end of namespace atm
