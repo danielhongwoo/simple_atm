@@ -7,12 +7,10 @@
 
 namespace atm {
 
-std::unique_ptr<AtmController>
-AtmController::Create(Banks &&bank_list, BankApi &&bank_api) noexcept {
+std::unique_ptr<AtmController> AtmController::Create(Banks &&bank_list, BankApi &&bank_api) noexcept {
   // TODO(daniel) check the bank list is valid. don't have redundant
   // TODO(daniel) add exception handler for the allocation
-  return std::unique_ptr<AtmController>(
-      new AtmController(std::move(bank_list), std::move(bank_api), 0));
+  return std::unique_ptr<AtmController>(new AtmController(std::move(bank_list), std::move(bank_api), 0));
 }
 
 bool AtmController::InsertCard(Card &&card) noexcept {
@@ -26,9 +24,7 @@ bool AtmController::InsertCard(Card &&card) noexcept {
   // TODO(daniel): handle std::bad_alloc of std::none_of
   const int bank_id{card.bank_id};
   bool not_supported_bank =
-      std::none_of(banks.begin(), banks.end(), [bank_id](const Bank &bank) {
-        return bank.GetId() == bank_id;
-      });
+      std::none_of(banks.begin(), banks.end(), [bank_id](const Bank &bank) { return bank.GetId() == bank_id; });
   if (not_supported_bank) {
     return false;
   }
@@ -94,4 +90,4 @@ bool AtmController::Withdraw(int amount) noexcept {
   return true;
 }
 
-} // end of namespace atm
+}  // end of namespace atm
